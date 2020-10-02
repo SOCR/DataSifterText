@@ -27,16 +27,16 @@ first_dataframe = impute(text, label)
 
 if SUMMARIZE:
 	# SUMMARIZE FUNC
-	tfidf_result = vectorize("bert_test_f1_seq.csv", True)
+	tfidf_result = vectorize(first_dataframe, True)
 	Obfuscate(tfidf_result, "summary")
 else:
 	# NO SUMMARIZE FUNC
 	if KEYWORDS_POSITION:
 		# Position FUNC
-		tfidf_result = vectorize("bert_test_f1_seq.csv", False)
+		tfidf_result = vectorize(first_dataframe, False)
 		Obfuscate(tfidf_result, "pos")
 	else:
 		# Keywords Func
-		tfidf_result = vectorize("bert_test_f1_seq.csv", False)
+		tfidf_result = vectorize(first_dataframe, False)
 		Obfuscate(tfidf_result, "keyword")
 

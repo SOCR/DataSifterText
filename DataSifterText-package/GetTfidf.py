@@ -51,9 +51,9 @@ def Preprocess(text):
         stemmed_texts.append(' '.join(stemmed_words))
     return stemmed_texts
 
-def vectorize(filename, summary):
+def vectorize(first_dataframe, summary):
     """vectorize the given text"""
-    clean_texts = pd.read_csv(filename)
+    clean_texts = first_dataframe
     new_texts = []
     label = clean_texts['label']
 
