@@ -3,11 +3,6 @@ from pytorch_pretrained_bert import BertTokenizer, BertModel, BertForMaskedLM
 import pandas as pd
 import csv
 
-# OPTIONAL: if you want to have more information on what's happening, activate the logger as follows
-# import logging
-# logging.basicConfig(level=logging.INFO)
-
-# Load pre-trained model tokenizer (vocabulary)
 def impute():
 	tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
@@ -22,7 +17,6 @@ def impute():
 			labels.append(row[1])
 			texts.append(row[3])
 
-	# Load pre-trained model (weights)
 	model = BertForMaskedLM.from_pretrained('bert-base-uncased')
 	model.eval()
 
@@ -31,8 +25,6 @@ def impute():
 		next_predict_text = texts[i]
 		while repeat_flag:
 			repeat_flag = False
-			# if i % 100 == 0:
-			# 	print("Now: ", i/len(texts))
 			text = next_predict_text
 			words = text.split()[:290]
 			tmp_str = ""
@@ -41,7 +33,6 @@ def impute():
 				tmp_str += " "
 			texts[i] = tmp_str
 			text = texts[i]
-			# print(text)
 			tokenized_text = tokenizer.tokenize(text)
 			indexed_tokens = tokenizer.convert_tokens_to_ids(tokenized_text)
 
@@ -62,17 +53,11 @@ def impute():
 				indices = [p for p, x in enumerate(tokenized_text) if x == '[MASK]']
 				prev_sent_indices = [q for q, x in enumerate(text.split()) if x == '[MASK]']
 
-			# print(predictions)
-			# print(indices)
-			# print("Previous:\n%s" %(text))
-			# print(tokenized_text)
 
 			last_index = -2
 			predict_result = []
 			for each_index in indices:
 				if last_index + 1 != each_index:
-					# predicted_index = torch.argmax(predictions[0, each_index]).item()
-					# print(predictions[0, masked_index])
 					sort_result = torch.sort(predictions[0,each_index])[1]
 					final_result = []
 					for j in range(20):
@@ -81,8 +66,6 @@ def impute():
 							pass
 						else:
 							final_result += [curr_item]
-					    # print(tokenizer.convert_ids_to_tokens([sort_result[-j-1].item()]))
-					# predicted_token = tokenizer.convert_ids_to_tokens([predicted_index])[0]
 					predict_result += [final_result[0]]
 				else:
 					repeat_flag = True
@@ -99,14 +82,9 @@ def impute():
 					elif k not in prev_sent_indices:
 						result += words[k]
 					else:
-						# print(predict_result[indices.index(k)])
 						result += predict_result[prev_sent_indices.index(k)][0].upper()
 					result += ' '
-				# print("After: \n%s" %(result))
 				predict_texts.append(result)
-				# print("DONE///////////")
-				# print(result)
-				# print('///////////////')
 			else:
 				words = text.split()
 				result = ""
@@ -114,10 +92,8 @@ def impute():
 					if k not in prev_sent_indices:
 						result += words[k]
 					else:
-						# print(predict_result[indices.index(k)])
-						result += predict_result[prev_sent_indices.index(k)][0].upper()
+						result += predict_result[prev_sent_indices.index(k)][0].lower()
 					result += ' '
-				# print("Next predict: " + result)
 				next_predict_text = result
 
 	df_bert = pd.DataFrame({
