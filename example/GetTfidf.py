@@ -1,5 +1,5 @@
 """vectorize text"""
-
+from autocorrect import Speller
 import pandas as pd
 import sklearn
 from nltk.stem import PorterStemmer
@@ -23,12 +23,12 @@ stopWords = set(stopwords.words('english'))
 def summarizeText(text):
     """summarize text if needed"""
     text_summarized = []
-    for txt in tqdm(text):
+    for txt in text:
         try:
             if (summarize(txt) == ''):
-            text_summarized.append(txt)
+                text_summarized.append(txt)
             else:
-            text_summarized.append(summarize(txt))
+                text_summarized.append(summarize(txt))
         except:
             text_summarized.append(txt)
 
@@ -96,14 +96,14 @@ def vectorize(filename, summary):
     clean_texts['label_pre'] = label_pre
     clean_texts['label'] = label
     if summary:
-        clean_texts['summary'] = text_summarized
+        clean_texts['summary'] = text
 
     data_wrap = pd.DataFrame()
     data_wrap = df_reduced
     data_wrap['label_pre'] = list(clean_texts['label_pre'])
     data_wrap['event_true'] = label
     if summary:
-        data_wrap['text_summary'] = text_summarized
+        data_wrap['text_summary'] = text
     data_wrap['text_raw'] = list(clean_texts['text'])
     # return preproccessed dataframe
     return data_wrap

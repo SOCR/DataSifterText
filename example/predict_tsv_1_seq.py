@@ -107,7 +107,7 @@ def impute():
 	        'text': final_text_arr
 	    })
 
-	df_bert.to_csv('bert_test_f1_seq.tsv', sep='\t', index = False, header = False)
+	df_bert.to_csv('bert_test_f1_seq.tsv', sep='\t', index = False, header = True)
 
 
 if __name__ == "__main__":

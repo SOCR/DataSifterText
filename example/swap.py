@@ -133,7 +133,6 @@ def Obfuscate(tfidf, method):
 
     copy_of_sample = tfidf
 
-    copy_of_sample = pd.DataFrame()
     group0 = copy_of_sample[copy_of_sample['label_pre'] == 0]
     group1 = copy_of_sample[copy_of_sample['label_pre'] == 1]
     group2 = copy_of_sample[copy_of_sample['label_pre'] == 2]
@@ -145,9 +144,9 @@ def Obfuscate(tfidf, method):
         texts = executor.map(Swap, index, tfidf)
 
     obfuscated_text = pd.DataFrame()
-    compare_text['raw_text'] = tfidf['text_raw']
-    obfuscated_text['swapped_text'] = list(texts)
-    compare_text['label'] = tfidf['event_true']
+    obfuscated_text['raw_text'] = tfidf['text_raw']
+    obfuscated_text['swapped_text'] = texts
+    obfuscated_text['label'] = tfidf['event_true']
     output = 'Obfuscated_?.csv', (METHOD,)
     obfuscated_text.to_csv(output)
 

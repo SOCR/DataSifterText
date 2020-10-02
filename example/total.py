@@ -6,6 +6,8 @@ from csv_to_tsv import to_tsv
 from GetTfidf import vectorize
 from swap import Obfuscate
 import sys
+import nltk
+nltk.download('words')
 
 # receive parameteres from users
 SUMMARIZE = 0  # 0: no summarize, 1: summarize
