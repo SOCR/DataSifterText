@@ -3,6 +3,8 @@ from mask import mask
 from predict_tsv_1_seq import impute
 from refine_label import refine_label
 from csv_to_tsv import to_tsv
+from GetTfidf import vectorize
+from swap import Obfuscate
 import sys
 
 # receive parameteres from users
@@ -20,13 +22,16 @@ to_tsv()
 
 if SUMMARIZE:
 	# SUMMARIZE FUNC
-	print("Summarized text and obfuscate")
+	tfidf_result = vectorize("bert_test_f1_seq.csv", True)
+	Obfuscate(tfidf_result, "summary")
 else:
 	# NO SUMMARIZE FUNC
 	if KEYWORDS_POSITION:
 		# Position FUNC
-		print("no summarization, doing pos-swap")
+		tfidf_result = vectorize("bert_test_f1_seq.csv", False)
+		Obfuscate(tfidf_result, "pos")
 	else:
 		# Keywords Func
-		print("no summarization, doing keywords-swap")
+		tfidf_result = vectorize("bert_test_f1_seq.csv", False)
+		Obfuscate(tfidf_result, "keyword")
 
