@@ -16,7 +16,7 @@ KEYWORDS_POSITION = 0 # 0: keywords, 1: position
 SUMMARIZE = int(sys.argv[1])
 KEYWORDS_POSITION = int(sys.argv[2])
 
-refine_label()
+refine_label(dataframe)
 process("0")
 mask()
 impute()
