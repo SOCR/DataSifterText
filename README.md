@@ -4,7 +4,7 @@ Usage:
 
 First, install pytorch pretrained BERT:
 
-```pip install pytorch_pretrained_bert==0.4.0```
+```pip install pytorch_pretrained_bert==0.4.0 genism```
 
 Then, run the whole obfuscation model:
 
