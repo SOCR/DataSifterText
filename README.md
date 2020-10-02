@@ -1,7 +1,7 @@
 # DataSifterText
 
-Setup:
-"""Set up python virtual environment"""
+# Setup:
+## """Set up python virtual environment"""
 $ cd DataSifterText-package
 # remove pre-existing env
 $ rm -rf env
