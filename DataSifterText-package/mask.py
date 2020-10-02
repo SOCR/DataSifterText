@@ -23,21 +23,16 @@ whitelist = set(
 "hi", "hit", "eye", "hand", "handyom", "cut", "metal", "lacer", "lac", "burn", "low", "lower", "finger",
 "stuck", "shoulder"])
 
-def mask():
+def mask(rows):
     X = []
     y = []
     idx = []
     masked_X = []
 
-    with open('processed_done_0.csv', 'r') as f:
-        reader = csv.reader(f)
-        i = 0
-        for row in reader:
-            i += 1
-            if i == 1:
-                continue
-            X.append(row[0])
-            y.append(row[1])
+    for case in rows:
+        text, label = case
+        X.append(text)
+        y.append(label)
 
     for i in range(len(X)):
         curr = X[i]
@@ -60,7 +55,7 @@ def mask():
 
             if j > 512:
                 break
-            if cnt >= min(len(curr), 512) * 0.5: # length of sentence * percentage(20% - 50%) 1e4 sentences + setting (masked_2/3.tsv)
+            if cnt >= min(len(curr), 512) * 0.5:
                 break
 
         change_sentence = ""
@@ -73,22 +68,4 @@ def mask():
         X[i] = change_sentence
         X[i] = '[CLS] ' + X[i] + " [SEP]"
 
-    print(masked_X)
-    print(y)
-
-    with open('masked_text.txt', 'w') as f_write:
-        for i in range(len(X)):
-            f_write.write(X[i] + '\n')
-            masked_X.append(X[i])
-
-    df_bert = pd.DataFrame({
-            'id':range(len(masked_X)),
-            'label':y,
-            'alpha':['a']*len(masked_X),
-            'text': masked_X
-        })
-
-    df_bert.to_csv('masked_f1.tsv', sep='\t', index = False, header = False)
-
-if __name__ == "__main__":
-    mask()
+    return X, y

@@ -16,11 +16,11 @@ KEYWORDS_POSITION = 0 # 0: keywords, 1: position
 SUMMARIZE = int(sys.argv[1])
 KEYWORDS_POSITION = int(sys.argv[2])
 
-refine_label(dataframe)
-process("0")
-mask()
-impute()
-to_tsv()
+rows = refine_label(dataframe)
+rows = process(rows)
+text, label = mask(rows)
+first_dataframe = impute(text, label)
+
 
 if SUMMARIZE:
 	# SUMMARIZE FUNC

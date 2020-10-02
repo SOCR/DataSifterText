@@ -3,19 +3,12 @@ from pytorch_pretrained_bert import BertTokenizer, BertModel, BertForMaskedLM
 import pandas as pd
 import csv
 
-def impute():
+def impute(text_input, label_input):
 	tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
-	id_list = []
-	labels = []
-	texts = []
+	labels = label_input
+	texts = text_input
 	predict_texts = []
-	with open('masked_f1.tsv','r') as f:
-		read_tsv = csv.reader(f, delimiter="\t")
-		for row in read_tsv:
-			id_list.append(row[0])
-			labels.append(row[1])
-			texts.append(row[3])
 
 	model = BertForMaskedLM.from_pretrained('bert-base-uncased')
 	model.eval()
@@ -101,14 +94,11 @@ def impute():
 		final_text_arr.append(each.lower())
 
 	df_bert = pd.DataFrame({
-	        'id':id_list,
+	        'id': range(len(labels)),
 	        'label':labels,
 	        'alpha':['a']*len(final_text_arr),
 	        'text': final_text_arr
 	    })
 
-	df_bert.to_csv('bert_test_f1_seq.tsv', sep='\t', index = False, header = True)
+	return df_bert
 
-
-if __name__ == "__main__":
-	impute()
