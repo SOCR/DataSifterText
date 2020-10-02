@@ -2,7 +2,7 @@
 
 Usage: 
 First, install pytorch pretrained BERT:
-pip install pytorch_pretrained_bert==0.4.0
+```pip install pytorch_pretrained_bert==0.4.0```
 
 Then, run the whole obfuscation model:
 python3 total.py <SUMMARIZATION> <KEYWORDS/POSITION SWAP MODE>
