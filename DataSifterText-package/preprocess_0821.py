@@ -12,7 +12,7 @@ def process(rows_input):
 
 		# Remove characters that are not in alphabets, numerics or space
 		text = text.replace('\n', " ")
-		tmp = list([val for val in row[j] if val.isalpha() or val==' ' or val == ',' or val == '.'])
+		tmp = list([val for val in text if val.isalpha() or val==' ' or val == ',' or val == '.'])
 		text = "".join(tmp)
 
 		if text == " ":
