@@ -92,15 +92,19 @@ def impute():
 					if k not in prev_sent_indices:
 						result += words[k]
 					else:
-						result += predict_result[prev_sent_indices.index(k)][0].lower()
+						result += predict_result[prev_sent_indices.index(k)][0].upper()
 					result += ' '
 				next_predict_text = result
+
+	final_text_arr = []
+	for each in predict_texts:
+		final_text_arr.append(each.lower())
 
 	df_bert = pd.DataFrame({
 	        'id':id_list,
 	        'label':labels,
-	        'alpha':['a']*len(predict_texts),
-	        'text': predict_texts
+	        'alpha':['a']*len(final_text_arr),
+	        'text': final_text_arr
 	    })
 
 	df_bert.to_csv('bert_test_f1_seq.tsv', sep='\t', index = False, header = False)
