@@ -49,3 +49,4 @@ $ python3 train_sifter.py
 # Now the data is ready. run the following command to start training:
 $ python3 run_classifier.py --task_name=cdc --do_train=true --do_eval=true --do_predict=true --data_dir=./data/ --vocab_file=./cased_L-12_H-768_A-12/vocab.txt --bert_config_file=./cased_L-12_H-768_A-12/bert_config.json --max_seq_length=512 --train_batch_size=32 --learning_rate=2e-5 --num_train_epochs=3.0 --output_dir=./bert_output/ --do_lower_case=False
 
+The result will be shown in bert_output directory.
