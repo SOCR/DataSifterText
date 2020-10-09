@@ -26,5 +26,9 @@ KEYWORDS/POSITION SWAP MODE 0: keywords-swap, 1: position-swap
 Notice that in summarization mode, we will only do keywords-swap.
 	
 Example: 
-$ python total.py 0 0
+$ python total.py 0 0 <filename>
+
+Built-in example:
+python3 total.py 0 0 processed_0_prepare.csv
+
 will run the obfuscation without summarization and doing keywords-swap.
