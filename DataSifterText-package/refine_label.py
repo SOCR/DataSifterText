@@ -17,6 +17,10 @@ def refine_label(dataframe):
 			label = 3
 		elif label == '71':
 			label = 4
+		elif label = '1':
+			label = 0
+		elif label = '2':
+			label = 1
 		rows.append([text, label])
 
 	return rows
