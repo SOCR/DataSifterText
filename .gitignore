@@ -30,3 +30,8 @@ venv3/
 # Google Drive and Dropbox
 Icon
 .dropbox*
+.Rproj.user
+DataSifterText-package/ui.R
+DataSifterText-package/server.R
+DataSifterText-package/DataSifterText-package.Rproj
+DataSifterText-package/.Rhistory
