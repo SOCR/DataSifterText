@@ -4,6 +4,7 @@ import pandas as pd
 import csv
 
 def impute(text_input, label_input):
+
 	tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
 	labels = label_input
@@ -53,28 +54,32 @@ def impute(text_input, label_input):
 			# Impute for missingness ([MASK]), do not impute neighborhood [MASK]
 			# last_index: last imputed index. If last_index + 1 == each_index (current index), it means
 			# 		we are imputing a neighborhood [MASK]
-			last_index = None
+			# last_index = None
 			predict_result = []
 			for each_index in indices:
-				if (last_index is None) or (last_index + 1 != each_index):
+				if each_index + 1 not in indices:    				
+				# if (last_index is None) or (last_index + 1 != each_index):
 					# impute this [MASK]
 					sort_result = torch.sort(predictions[0,each_index])[1]
 					final_result = [] # final_result stores the top 20 possible imputed choices.
 					for j in range(20):
 						curr_item = tokenizer.convert_ids_to_tokens([sort_result[-j-1].item()])
-						if curr_item[0] in ['.', ',', '-', ';', '?', '!', '|']:
-							pass
-						else:
+						if curr_item[0] not in ['.', ',', '-', ';', '?', '!', '|']:
+							# pass
 							final_result += [curr_item]
+						# else:
+							# final_result += [curr_item]
 					# We can choose the top 1 or sample from these 20 choices. Here we just choose the top one.
 					predict_result += [final_result[0]]
 				else:
 					# Do not impute this [MASK] since it is a neighbor of previous imputed [MASK]
 					repeat_flag = True
 					predict_result += [['[MASK]']]
-				last_index = each_index
+				# last_index = each_index
 
 			if not repeat_flag:
+								
+
 				# No [MASK] left, ready to output result
 				words = text.split()
 				result = ""
@@ -89,6 +94,7 @@ def impute(text_input, label_input):
 					result += ' '
 				predict_texts.append(result)
 			else:
+
 				# There is still [MASK] left, prepare for next iteration
 				words = text.split()
 				result = ""
@@ -109,7 +115,11 @@ def impute(text_input, label_input):
 	        'label':labels,
 	        'alpha':['a']*len(final_text_arr),
 	        'text': final_text_arr
-	    })
+	    }) 	
 
 	return df_bert
+
+
+
+
 
