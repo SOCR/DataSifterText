@@ -57,33 +57,31 @@ def impute(text_input, label_input):
 			# last_index = None
 			predict_result = []
 			for each_index in indices:
-				if each_index + 1 not in indices:    				
-				# if (last_index is None) or (last_index + 1 != each_index):
-					# impute this [MASK]
+				if each_index + 1 not in indices:    			
 					sort_result = torch.sort(predictions[0,each_index])[1]
 					final_result = [] # final_result stores the top 20 possible imputed choices.
 					for j in range(20):
 						curr_item = tokenizer.convert_ids_to_tokens([sort_result[-j-1].item()])
 						if curr_item[0] not in ['.', ',', '-', ';', '?', '!', '|']:
-							# pass
 							final_result += [curr_item]
-						# else:
-							# final_result += [curr_item]
+
 					# We can choose the top 1 or sample from these 20 choices. Here we just choose the top one.
 					predict_result += [final_result[0]]
 				else:
 					# Do not impute this [MASK] since it is a neighbor of previous imputed [MASK]
 					repeat_flag = True
 					predict_result += [['[MASK]']]
-				# last_index = each_index
 
+			
+			words = text.split()
+			result = ""
 			if not repeat_flag:
-								
+
 
 				# No [MASK] left, ready to output result
-				words = text.split()
-				result = ""
-
+				# words = text.split()
+				
+				# result = ""
 				for k in range(len(words)):
 					if words[k] == '[CLS]' or words[k] == '[SEP]':
 						continue
@@ -96,8 +94,8 @@ def impute(text_input, label_input):
 			else:
 
 				# There is still [MASK] left, prepare for next iteration
-				words = text.split()
-				result = ""
+				# words = text.split()
+				# result = ""
 				for k in range(len(words)):
 					if k not in prev_sent_indices:
 						result += words[k]
