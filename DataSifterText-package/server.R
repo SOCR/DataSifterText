@@ -7,7 +7,7 @@ reticulate::use_python('env/bin/python3')
 
 # Import python functions to R
 # FIXME: change it to your local path
-source_python('/Users/ww/Desktop/MDP-SOCR/DataSifterText/DataSifterText-package/total.py')
+source_python('/home/yitongli/DataSifterText/DataSifterText-package/total.py')
 
 
 # Define server logic required to generate and plot a random distribution
