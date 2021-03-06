@@ -353,10 +353,16 @@ class ColaProcessor_for_cdc(DataProcessor):
     return self._create_examples(
         self._read_tsv(os.path.join(data_dir, "test.tsv")), "test")
 
-  def get_labels(self):
+  def get_labels(self, filename):
     """See base class."""
     # return ['62', '42', '55', '63', '71']
-    return ['0', '1~2', '>=3']
+    # label = {}
+    with open(filename) as fd:
+      rd = csv.reader(fd, delimiter='\t')
+      rdList = list(rd)
+      label = {rdList[i][1] for i in range(len(rdList))}
+    myList = list(label)
+    return myList
 
   def _create_examples(self, lines, set_type):
     """Creates examples for the training and dev sets."""
