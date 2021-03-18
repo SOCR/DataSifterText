@@ -1,0 +1,5 @@
+# unzip the file
+unzip DataSifter_Text_app.zip
+
+# copy files to the server
+scp -r DataSifter_Text_app uniqname@rshiny.umms.med.umich.edu:~/ShinyApps/SOCR_DataSifterText_app/
