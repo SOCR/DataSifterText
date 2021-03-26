@@ -1,7 +1,3 @@
-"""vectorize text"""
-from autocorrect import Speller
-import pandas as pd
-import sklearn
 from nltk.stem import PorterStemmer
 from nltk.tokenize import TreebankWordTokenizer
 import re
