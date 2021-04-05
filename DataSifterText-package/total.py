@@ -8,6 +8,11 @@ from swap import Obfuscate
 import pandas as pd
 import sys
 import nltk
+import time
+
+# starting time
+start = time.time()
+
 nltk.download('words')
 
 # receive parameteres from users
@@ -17,6 +22,7 @@ KEYWORDS_POSITION = 0 # 0: keywords, 1: position
 SUMMARIZE = int(sys.argv[1])
 KEYWORDS_POSITION = int(sys.argv[2])
 FILE_NAME = sys.argv[3]
+
 
 dataframe = pd.read_csv(FILE_NAME)
 rows = refine_label(dataframe)
@@ -40,3 +46,8 @@ else:
 		tfidf_result = vectorize(first_dataframe, False)
 		Obfuscate(tfidf_result, "keyword")
 
+# end time
+end = time.time()
+
+# total time taken
+print(f"Runtime of the program is {end - start}")

@@ -1,11 +1,14 @@
 import torch
-from transformers import BertTokenizer, BertForMaskedLM
+from transformers import BertTokenizer, BertTokenizerFast, BertForMaskedLM
+from transformers import ElectraTokenizer, ElectraTokenizerFast, ElectraForMaskedLM
 import pandas as pd
 import csv
 
 def impute(text_input, label_input):
-	tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
-	model = BertForMaskedLM.from_pretrained('bert-base-uncased')
+	# tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+	# model = BertForMaskedLM.from_pretrained('bert-base-uncased')
+	tokenizer = ElectraTokenizerFast.from_pretrained('google/electra-small-discriminator')
+	model = ElectraForMaskedLM.from_pretrained('google/electra-small-discriminator')
 
 	labels = label_input
 	texts = text_input
@@ -28,7 +31,7 @@ def impute(text_input, label_input):
 			predictions = model(**inputs)
 
 			input_ids = (inputs['input_ids'].tolist())[0]
-			if '[MASK]' not in input_ids: # 103 is the id of [MASK]
+			if 103 not in input_ids: # 103 is the id of [MASK]
 				indices = []
 				prev_sent_indices = []
 			else:
