@@ -5,10 +5,10 @@ import pandas as pd
 import csv
 
 def impute(text_input, label_input):
-	# tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
-	# model = BertForMaskedLM.from_pretrained('bert-base-uncased')
-	tokenizer = ElectraTokenizerFast.from_pretrained('google/electra-small-discriminator')
-	model = ElectraForMaskedLM.from_pretrained('google/electra-small-discriminator')
+	tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+	model = BertForMaskedLM.from_pretrained('bert-base-uncased')
+	# tokenizer = ElectraTokenizerFast.from_pretrained('google/electra-small-discriminator')
+	# model = ElectraForMaskedLM.from_pretrained('google/electra-small-discriminator')
 
 	labels = label_input
 	texts = text_input
