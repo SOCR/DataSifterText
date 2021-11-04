@@ -23,11 +23,9 @@ whitelist = set(
 "hi", "hit", "eye", "hand", "handyom", "cut", "metal", "lacer", "lac", "burn", "low", "lower", "finger",
 "stuck", "shoulder"])
 
-def mask(rows):
+def mask(rows, mask_token, cls_token, sep_token):
     X = []
     y = []
-    idx = []
-    masked_X = []
 
     for case in rows:
         text, label = case
@@ -43,11 +41,11 @@ def mask(rows):
             random_num = random.uniform(0,1)
             if random_num > 0.75 * coeffi:
                 if curr[j] not in blacklist:
-                    curr[j] = '[MASK]'
+                    curr[j] = mask_token
                     cnt += 1
                     coeffi = 1.2
             elif curr[j] in whitelist and random_num > 0.5 * coeffi:
-                curr[j] = '[MASK]'
+                curr[j] = mask_token
                 cnt += 1
                 coeffi = 1.2
             else:
@@ -66,6 +64,6 @@ def mask(rows):
             if j > 420:
                 break
         X[i] = change_sentence
-        X[i] = '[CLS] ' + X[i] + " [SEP]"
+        X[i] = cls_token + ' ' + X[i] + ' ' + sep_token
 
     return X, y

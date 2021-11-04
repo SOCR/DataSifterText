@@ -1,14 +1,12 @@
 import torch
-from transformers import BertTokenizer, BertTokenizerFast, BertForMaskedLM
-from transformers import ElectraTokenizer, ElectraTokenizerFast, ElectraForMaskedLM
 import pandas as pd
 import csv
 
-def impute(text_input, label_input):
-	tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
-	model = BertForMaskedLM.from_pretrained('bert-base-uncased')
-	# tokenizer = ElectraTokenizerFast.from_pretrained('google/electra-small-discriminator')
-	# model = ElectraForMaskedLM.from_pretrained('google/electra-small-discriminator')
+from transformers import AutoTokenizer, AutoModelForMaskedLM
+
+def impute(text_input, label_input, model_name, mask_id, mask_token, cls_token, sep_token):
+	tokenizer = AutoTokenizer.from_pretrained(model_name)
+	model = AutoModelForMaskedLM.from_pretrained(model_name)
 
 	labels = label_input
 	texts = text_input
@@ -21,22 +19,22 @@ def impute(text_input, label_input):
 			repeat_flag = False
 			text = next_predict_text
 			words = text.split()[:290]
-			tmp_str = ""
+			tmp_str = "" 
 			for word_idx in range(len(words)):
 				tmp_str += words[word_idx]
 				tmp_str += " "
 			text, texts[i] = tmp_str, tmp_str
 
-			inputs = tokenizer(text,return_tensors="pt")
+			inputs = tokenizer(text, return_tensors="pt")
 			predictions = model(**inputs)
 
 			input_ids = (inputs['input_ids'].tolist())[0]
-			if 103 not in input_ids: # 103 is the id of [MASK]
+			if mask_id not in input_ids:
 				indices = []
 				prev_sent_indices = []
 			else:
-				indices = [p for p, x in enumerate(input_ids) if x == 103]
-				prev_sent_indices = [q for q, x in enumerate(text.split()) if x == '[MASK]']
+				indices = [p for p, x in enumerate(input_ids) if x == mask_id]
+				prev_sent_indices = [q for q, x in enumerate(text.split()) if x == mask_token]
 
 			# indices and prev_sent_indicies store the positions of [MASK]
 			# indices: store the tokenized [MASK] position (for imputation)
@@ -60,7 +58,7 @@ def impute(text_input, label_input):
 				else:
 					# Do not impute this [MASK] since it is a neighbor of previous imputed [MASK]
 					repeat_flag = True
-					predict_result += [['[MASK]']]
+					predict_result += [[mask_token]]
 
 			
 			words = text.split()
@@ -68,7 +66,7 @@ def impute(text_input, label_input):
 			if not repeat_flag:
 				# No [MASK] left, ready to output result
 				for k in range(len(words)):
-					if words[k] == '[CLS]' or words[k] == '[SEP]':
+					if words[k] == cls_token or words[k] == sep_token:
 						continue
 					elif k not in prev_sent_indices:
 						result += words[k]
@@ -92,8 +90,8 @@ def impute(text_input, label_input):
 
 	df_bert = pd.DataFrame({
 	        'id': range(len(labels)),
-	        'label':labels,
-	        'alpha':['a']*len(final_text_arr),
+	        'label': labels,
+	        'alpha': ['a']*len(final_text_arr),
 	        'text': final_text_arr
 	    }) 	
 

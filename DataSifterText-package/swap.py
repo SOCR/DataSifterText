@@ -178,4 +178,3 @@ def Obfuscate(tfidf, method):
     output = 'Obfuscated_%s.csv' % METHOD
     obfuscated_text.to_csv(output)
     return output
-
