@@ -1,16 +1,16 @@
 # DataSifterText
 
 ## Setup:
-### Set up python virtual environment
-$ cd DataSifterText-package
-### remove pre-existing env
-$ rm -rf env
-### define new env
-$ python3 -m venv env
-### activate virtual env
-$ source env/bin/activate
-### install required package
-$ pip install -r requirements.txt
+	# Set up python virtual environment	
+	cd DataSifterText-package
+	# Remove pre-existing env
+	rm -rf env
+	# Define new env
+	python3 -m venv env
+	# Activate virtual env
+	source env/bin/activate
+	# Install required package
+	pip install -r requirements.txt
 
 ## Usage:
 
