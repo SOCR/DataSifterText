@@ -13,9 +13,11 @@
 
 	python3 total.py --model_mode <MODEL_MODE> --summarize <SUMMARIZE> --keywords_position <KEYWORDS_POSITION> --file_name <FILE_NAME>
 
-SUMMARIZE 0: no summarize, 1: summarize
+* MODEL_MODE: bert, bert_large, electra, pubmedbert
 
-KEYWORDS/POSITION SWAP MODE 0: keywords-swap, 1: position-swap
+* SUMMARIZE 0: no summarize, 1: summarize
+
+* KEYWORDS/POSITION SWAP MODE 0: keywords-swap, 1: position-swap
 
 Notice that in summarization mode, we will only do keywords-swap.
 	
