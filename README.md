@@ -23,6 +23,7 @@ Notice that in summarization mode, we will only do keywords-swap.
 	python3 total.py --model_mode bert --summarize 0 --keywords_position 0 --file_name <FILE_NAME>
 
 Built-in example:
+
 	python3 total.py --model_mode electra --summarize 0 --keywords_position 0 --file_name processed_0_prepare_small.csv
 
 will run the obfuscation without summarization and doing keywords-swap.
