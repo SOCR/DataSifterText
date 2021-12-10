@@ -1,5 +1,14 @@
 # DataSifterText
 
+<!--ToC-->
+Table of Contents
+=================
+   * [Setup](#setup)
+   * [Usage](#usage)
+   * [See also](#see-also)
+   * [References](#references)
+<!--ToC-->
+
 ## Setup:
 ### Set up python virtual environment
 $ cd DataSifterText-package
@@ -24,7 +33,7 @@ KEYWORDS/POSITION SWAP MODE 0: keywords-swap, 1: position-swap
 
 Notice that in summarization mode, we will only do keywords-swap.
 	
-## Example: 
+## Example
 $ python total.py 0 0 <filename>
 
 Built-in example:
@@ -50,14 +59,11 @@ $ python3 run_classifier.py --task_name=cdc --do_train=true --do_eval=true --do_
 
 The result will be shown in bert_output directory.
 
-See also
-========
+## See also
 * [DataSifter II (longitudinal Data)](https://github.com/SOCR/DataSifterII)
 * [DataSifter I](https://github.com/SOCR/DataSifter).
 	
-References
-==========
-
+## References
 * [DataSifter-Lite (V 1.0)](https://github.com/SOCR/DataSifter) 
 * [DataSifter website](http://datasifter.org)
 * Marino, S, Zhou, N, Zhao, Yi, Wang, L, Wu Q, and Dinov, ID. (2019) [DataSifter: Statistical Obfuscation of Electronic Health Records and Other Sensitive Datasets](https://doi.org/10.1080/00949655.2018.1545228), Journal of Statistical Computation and Simulation, 89(2): 249–271, DOI: 10.1080/00949655.2018.1545228.
