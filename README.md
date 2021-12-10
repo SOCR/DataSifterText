@@ -49,3 +49,16 @@ $ python3 train_sifter.py
 $ python3 run_classifier.py --task_name=cdc --do_train=true --do_eval=true --do_predict=true --data_dir=./data/ --vocab_file=./cased_L-12_H-768_A-12/vocab.txt --bert_config_file=./cased_L-12_H-768_A-12/bert_config.json --max_seq_length=512 --train_batch_size=32 --learning_rate=2e-5 --num_train_epochs=3.0 --output_dir=./bert_output/ --do_lower_case=False
 
 The result will be shown in bert_output directory.
+
+See also
+========
+* [DataSifter II (longitudinal Data)](https://github.com/SOCR/DataSifterII)
+* [DataSifter I](https://github.com/SOCR/DataSifter).
+	
+References
+==========
+
+* [DataSifter-Lite (V 1.0)](https://github.com/SOCR/DataSifter) 
+* [DataSifter website](http://datasifter.org)
+* Marino, S, Zhou, N, Zhao, Yi, Wang, L, Wu Q, and Dinov, ID. (2019) [DataSifter: Statistical Obfuscation of Electronic Health Records and Other Sensitive Datasets](https://doi.org/10.1080/00949655.2018.1545228), Journal of Statistical Computation and Simulation, 89(2): 249–271, DOI: 10.1080/00949655.2018.1545228.
+* Zhou, N, Wang, L, Marino, S, Zhao, Y, Dinov, ID. (2022) [DataSifter II: Partially Synthetic Data Sharing of Sensitive Information Containing Time-varying Correlated Observations](https://journals.sagepub.com/loi/acta), [Journal of Algorithms & Computational Technology](https://journals.sagepub.com/loi/acta), Volume 15: 1–17, DOI: [10.1177/17483026211065379](https://doi.org/10.1177/17483026211065379).
